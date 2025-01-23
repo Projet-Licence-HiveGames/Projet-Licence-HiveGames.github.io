@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+:root {
+    font-family: "Nunito", serif;
+
+    color-scheme: light dark;
+    color: white;
+    background-color: var(--bg-color-lightest);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --bg-color-darker: #1b232e;
+    --bg-color-dark: #212a38;
+    --bg-color-normal: #273142;
+    --bg-color-light: #2d3748;
+    --bg-color-lighter: #323d4e;
+    --bg-color-lightest: #454f5e;
+
+    --button-gradient-orange: linear-gradient(0deg, #f2b705, #f28a07);
+
+    --button-border-radius: 4px;
+    --button-border-radius-md: 7px;
+    --button-border-radius-lg: 10px;
+    --button-border-radius-xl: 12px;
+
+    --header-height: 70px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    background-color: var(--bg-color-lighter);
+    padding: 20px;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    display: flex;
+    gap: 10px;
+}
+
+.topnavDate {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.topNav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

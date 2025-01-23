@@ -1,14 +1,22 @@
-<head>
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
-    ></script>
-  </head>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <script
+          type="module"
+          src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
+        ></script>
+        <title>Blog HiveGames</title>
+    </head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/styles.css"/>
   <body>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <div class="topnavDate">
+            <input type="date" name="date" id="date"/>
+        </div>
+        <div class="topNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+        </div>
     </nav>
     <div class="container" id="news-container"></div>
     <script>
@@ -25,3 +33,4 @@
         });
     </script>
   </body>
+</html>
