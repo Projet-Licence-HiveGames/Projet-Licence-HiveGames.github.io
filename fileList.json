@@ -1,3 +1,8 @@
-{
-    "files": ["test", "test1"]
-}
+[
+    {"id": 1, "file":  "test", "label": "titre test1", "date": "2025-01-23"},
+    {"id": 2, "file":  "test1", "label": "titre test2", "date": "2025-01-29"},
+    {"id": 3, "file":  "test2", "label": "titre test3", "date": "2025-01-31"},
+    {"id": 4, "file":  "test3", "label": "titre test4", "date": "2025-05-2"},
+    {"id": 4, "file":  "test3", "label": "titre test4", "date": "2025-04-01"}
+
+]

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <script
+                type="module"
+                src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
+        ></script>
+        <meta charset="utf-8" />
+        <link rel = "stylesheet" type = "text/css" href = "/css/styles.css"/>
+        <title>Blog</title>
+    </head>
+    <body>
+    <nav>
+        <div class="logo">
+            <a href="../index.html"><img src="../assets/HiveGamesStudio.png" alt="logo du blog"></a>
+        </div>
+        <div class="topNav">
+            <a href="../index.html">Accueil</a>
+            <a href="about.html">A propos</a>
+        </div>
+    </nav>
+
+    <div id="news-container" class="news-container"></div>
+    <script>
+        function getNews() {
+            const newsContainer = document.getElementById('news-container');
+            const hash = window.location.hash;
+            const idFromHash = parseInt(hash.replace('#', ''), 10);
+            fetch('../fileList.json')
+                .then((res) => res.json())
+                .then((data) => {
+                    const itemFound = data.find((item) => item.id === idFromHash);
+
+                    if (itemFound) {
+                        newsContainer.innerHTML = `<zero-md id="zero-md" src="../md/${itemFound.file}.md"></zero-md>`;
+                        document.title = `Blog ${window.location.hash.slice(1)}`;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erreur lors du fetch:', error);
+                });
+        }
+        // refresh the html when the hash changes
+        window.addEventListener('hashchange', () => {
+            getNews();
+        });
+        getNews();
+    </script>
+    </body>
+</html>

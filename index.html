@@ -5,31 +5,98 @@
           type="module"
           src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
         ></script>
+        <meta charset="utf-8" />
+        <link rel = "stylesheet" type = "text/css" href = "/css/styles.css"/>
         <title>Blog HiveGames</title>
     </head>
-    <link rel = "stylesheet" type = "text/css" href = "/css/styles.css"/>
+
   <body>
     <nav>
-        <div class="topnavDate">
-            <input type="date" name="date" id="date"/>
+        <div class="logo">
+            <a><img src="/assets/HiveGamesStudio.png" alt="logo du blog"></a>
+        </div>
+        <div class="topnavDate" id="topnavDate">
+            <input type="date" name="date" id="dateInput"/>
         </div>
         <div class="topNav">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
+            <a href="index.html">Accueil</a>
+            <a href="html/about.html">A propos</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span>&#9776;</span>
         </div>
     </nav>
-    <div class="container" id="news-container"></div>
+    <div class="container">
+        <div class="news">
+            <img src="/assets/What's.png" alt="logo du blog">
+        </div>
+        <div class="container-news" id="news-container"></div>
+    </div>
     <script>
-        // fetch noms de fichiers dans le répertoire md
         const newsContainer = document.getElementById('news-container');
+        const buttonAllBlog = document.createElement('button');
+        buttonAllBlog.innerHTML = 'Tout';
+        buttonAllBlog.disabled = false;
 
-        fetch('/fileList.json').then(response => response.json()).then(data => {
-            data.files.forEach(file => {
-                const link = document.createElement('a');
-                link.href = `news.html#${file}`;
-                link.textContent = file;
-                newsContainer.appendChild(link);
-            });
+        const displayFiles = (files) => {
+            newsContainer.innerHTML = '';
+            if (files.length > 0) {
+                files.forEach(file => {
+                    const box = document.createElement('div');
+                    box.className = 'little-container';
+
+                    const middleBox = document.createElement('div');
+                    middleBox.className = 'little-box';
+
+                    const link = document.createElement('a');
+                    link.href = `html/news.html#${file.id}`;
+                    link.innerHTML = `[${file.date}]<br/>${file.label}`;
+
+                    newsContainer.appendChild(box);
+                    box.appendChild(middleBox);
+                    middleBox.appendChild(link);
+                });
+            }
+        };
+
+        const allBlog = (a) => {
+            if (a) {
+                fetch('/fileList.json').then(response => response.json()).then(data => {
+                    displayFiles(data);
+                });
+            }
+            else {
+                newsContainer.innerHTML = '<p>Aucun article trouvé pour cette date.</p>';
+            }
+        };
+
+        allBlog(true);
+
+        buttonAllBlog.onclick = () => {
+            allBlog(true);
+            buttonAllBlog.disabled = true;
+        };
+
+        const allBlogContainer = document.getElementById('topnavDate');
+        allBlogContainer.appendChild(buttonAllBlog);
+
+        document.getElementById('dateInput').addEventListener('change', e => {
+            const date = e.target.value;
+            fetch('/fileList.json')
+                .then(response => response.json())
+                .then(data => {
+                    const filteredFiles = data.filter(file => file.date === date);
+
+                    if (filteredFiles.length > 0) {
+                        displayFiles(filteredFiles);
+                    } else {
+                        allBlog(false);
+                    }
+                    buttonAllBlog.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement des fichiers :', error);
+                });
         });
     </script>
   </body>
