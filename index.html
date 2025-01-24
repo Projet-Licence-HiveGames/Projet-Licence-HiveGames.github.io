@@ -40,7 +40,7 @@
             if (files.length > 0) {
                 files.forEach(file => {
                     const box = document.createElement('a');
-                    box.href = `html/blog.html#${file.id}`;
+                    box.href = `html/blog.html?blog=${file.id}`;
                     box.className = 'little-container';
 
                     const middleBox = document.createElement('div');

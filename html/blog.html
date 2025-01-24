@@ -20,26 +20,44 @@
         </div>
     </nav>
 
-    <div id="news-container" class="news-container"></div>
+    <div id="container" class="container">
+        <div id="language-selector" class="language-selector">
+            Langue:
+            <select id="select_language">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        <div id="blog-container" class="blog-container"></div>
+    </div>
     <script>
         function getNews() {
-            const newsContainer = document.getElementById('news-container');
-            const hash = window.location.hash;
-            const idFromHash = parseInt(hash.replace('#', ''), 10);
+            const newsContainer = document.getElementById('blog-container');
+            const params = new URLSearchParams(window.location.search);
+            const numBlog = parseInt(params.get('blog'), 10);
+            const selectedLanguage = params.get('lang') || 'fr';
             fetch('../fileList.json')
                 .then((res) => res.json())
                 .then((data) => {
-                    const itemFound = data.find((item) => item.id === idFromHash);
+                    const itemFound = data.find((item) => item.id === numBlog);
 
                     if (itemFound) {
-                        newsContainer.innerHTML = `<zero-md id="zero-md" src="../blogs/${itemFound.file}.md"></zero-md>`;
-                        document.title = `Blog ${window.location.hash.slice(1)}`;
+                        document.getElementById('select_language').value = selectedLanguage;
+
+                        newsContainer.innerHTML = `<zero-md id="zero-md" src="../blogs/${selectedLanguage}/${itemFound.filename}.md"></zero-md>`;
+                        document.title = `Blog du ${new Date(itemFound.date).toLocaleDateString('fr-FR')}`;
                     }
                 })
                 .catch((error) => {
                     console.error('Erreur lors du fetch:', error);
                 });
         }
+
+        document.getElementById('select_language').addEventListener('change', (event) => {
+            const lang = event.target.value;
+            window.location.href = `${window.location.pathname}?blog=${new URLSearchParams(window.location.search).get('blog')}&lang=${lang}`;
+        });
+
         // refresh the html when the hash changes
         window.addEventListener('hashchange', () => {
             getNews();
