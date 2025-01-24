@@ -90,9 +90,9 @@ input[type="date"] {
 
 .topnavDate {
     display: flex;
-    margin: 0 auto;
     flex: 1;
     justify-content: center;
+    gap: 10px;
 }
 
 .topNav {
@@ -114,6 +114,19 @@ input[type="date"] {
     color: transparent;
     background-clip: text;
     background: var(--button-gradient-orange);
+}
+
+.topnavDate button {
+    border: none;
+    background: var(--button-gradient-orange);
+    color: white;
+    border-radius: var(--button-border-radius-md);
+    padding: 7px;
+}
+
+.topnavDate button:hover {
+    cursor: pointer;
+    background: var(--bg-color-lightest);
 }
 
 .logo {
