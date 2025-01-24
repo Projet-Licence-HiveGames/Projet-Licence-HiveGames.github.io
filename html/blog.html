@@ -32,7 +32,7 @@
                     const itemFound = data.find((item) => item.id === idFromHash);
 
                     if (itemFound) {
-                        newsContainer.innerHTML = `<zero-md id="zero-md" src="../md/${itemFound.file}.md"></zero-md>`;
+                        newsContainer.innerHTML = `<zero-md id="zero-md" src="../blogs/${itemFound.file}.md"></zero-md>`;
                         document.title = `Blog ${window.location.hash.slice(1)}`;
                     }
                 })

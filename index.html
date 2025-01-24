@@ -17,6 +17,7 @@
         </div>
         <div class="topnavDate" id="topnavDate">
             <input type="date" name="date" id="dateInput"/>
+            <button id="buttonDateSeeAll" onclick="allBlog(true)" hidden>Voir tous les posts</button>
         </div>
         <div class="topNav">
             <a href="index.html">Accueil</a>
@@ -34,33 +35,28 @@
     </div>
     <script>
         const newsContainer = document.getElementById('news-container');
-        const buttonAllBlog = document.createElement('button');
-        buttonAllBlog.innerHTML = 'Tout';
-        buttonAllBlog.disabled = false;
-
         const displayFiles = (files) => {
             newsContainer.innerHTML = '';
             if (files.length > 0) {
                 files.forEach(file => {
-                    const box = document.createElement('div');
+                    const box = document.createElement('a');
+                    box.href = `html/blog.html#${file.id}`;
                     box.className = 'little-container';
 
                     const middleBox = document.createElement('div');
                     middleBox.className = 'little-box';
-
-                    const link = document.createElement('a');
-                    link.href = `html/news.html#${file.id}`;
-                    link.innerHTML = `[${file.date}]<br/>${file.label}`;
+                    middleBox.innerHTML = `[${file.date}]<br/>${file.label}`;
 
                     newsContainer.appendChild(box);
                     box.appendChild(middleBox);
-                    middleBox.appendChild(link);
                 });
             }
         };
 
         const allBlog = (a) => {
             if (a) {
+                document.getElementById('buttonDateSeeAll').hidden = true;
+                document.getElementById('dateInput').value = '';
                 fetch('/fileList.json').then(response => response.json()).then(data => {
                     displayFiles(data);
                 });
@@ -72,16 +68,9 @@
 
         allBlog(true);
 
-        buttonAllBlog.onclick = () => {
-            allBlog(true);
-            buttonAllBlog.disabled = true;
-        };
-
-        const allBlogContainer = document.getElementById('topnavDate');
-        allBlogContainer.appendChild(buttonAllBlog);
-
         document.getElementById('dateInput').addEventListener('change', e => {
             const date = e.target.value;
+            document.getElementById('buttonDateSeeAll').hidden = date == '';
             fetch('/fileList.json')
                 .then(response => response.json())
                 .then(data => {
@@ -92,7 +81,7 @@
                     } else {
                         allBlog(false);
                     }
-                    buttonAllBlog.disabled = false;
+                    document.getElementById('buttonDateSeeAll').disabled = false;
                 })
                 .catch(error => {
                     console.error('Erreur lors du chargement des fichiers :', error);
