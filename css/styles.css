@@ -182,7 +182,7 @@ input[type="date"] {
 
 .little-box {
     position: absolute;
-    bottom: -100%;
+    bottom: -50%;
     height: 100%;
     width: 100%;
     background: var(--button-gradient-orange);
@@ -194,9 +194,6 @@ input[type="date"] {
     font-size: 22px;
 }
 
-.little-container:hover .little-box {
-    bottom: -50%;
-}
 .news {
     display: flex;
     justify-content: center;

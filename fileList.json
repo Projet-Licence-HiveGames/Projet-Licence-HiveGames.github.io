@@ -1,4 +1,4 @@
 [
-    {"id": 0, "filename":  "test", "label": "titre test1", "date": "2025-01-23"},
-    {"id": 1, "filename":  "1", "label": "titre test2", "date": "2025-01-29"}
+    {"id": 0, "filename":  "test", "label": "titre test1", "date": "23-01-2025"},
+    {"id": 1, "filename":  "1", "label": "titre test2", "date": "29-01-2025"}
 ]
